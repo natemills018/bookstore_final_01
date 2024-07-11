@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { POST, TOKEN_KEY } from "../services/fetcher";
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {   
-    const [isLogin, setisLogin] = useState(true);
+    const nav = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
 const handleLogin = () => {
-    const url = isLogin ? '/auth/login': '/auth/register';
+    const url = '/auth/login';
     POST(url, {email, password}).then((token) => {
         localStorage.setItem(TOKEN_KEY, token)
         alert('You logged in!')
+        nav('/books')
     })
 }
 
@@ -19,20 +21,12 @@ const handleLogin = () => {
 return (
 <div className="card-body">
       <div>
-        <h1 className="d-flex justify-content-center">{isLogin ? 'Logging in.': 'Registering.'} Need to <button onClick={() => setisLogin(!isLogin)}>swtich?</button>
+        <h1 className="d-flex justify-content-center"> Log in?
         </h1>
         
 
         <div className="d-flex justify-content-center m-2">
 
-        {/* {!isLogin && <input 
-            className="m-2" 
-            placeholder="Name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-        
-        />} */}
           <input
             className="m-2"
             placeholder="Email"
@@ -52,7 +46,7 @@ return (
             className="rounded mx-4"
             onClick={handleLogin}
           >
-            {isLogin ? 'Log in' : 'Register'}
+            Log in!
           </button>
         </div>
       </div>
