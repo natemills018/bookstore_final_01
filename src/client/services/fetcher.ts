@@ -1,3 +1,5 @@
+export const TOKEN_KEY = 'token'
+
 export function fetcher<T = any>(url: string, method: string = "GET", rawData?: any) {
     const headers = new Headers();
 
@@ -6,7 +8,7 @@ export function fetcher<T = any>(url: string, method: string = "GET", rawData?: 
         method,
     };
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(TOKEN_KEY);
 
     if (token) {
         headers.append("Authorization", `Bearer ${token}`);

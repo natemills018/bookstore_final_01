@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import type { Book } from '../types';
+import { Category, type Book } from '../types';
 import { Link } from 'react-router-dom';
 import { GET } from '../services/fetcher';
 
@@ -10,6 +10,7 @@ interface BooksProps {
 
 const Books = (props: BooksProps) => {
     const [data, setData] = useState<Book[]>([])
+    const [categories, setCategories] = useState<Category>()
 
     useEffect(() => {
         GET('/api/books')

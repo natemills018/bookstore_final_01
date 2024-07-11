@@ -3,6 +3,7 @@ import { GET, fetcher } from "./services/fetcher";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./views/Home";
 import Books from "./views/Books";
+import Login from "./views/Login";
 
 interface AppProps {}
 
@@ -25,8 +26,8 @@ const App = (props: AppProps) => {
 				<Route path='/' element={<Home />} />
 				{/* <Route path='/books/:id' element={<BookDetails />} />
                 <Route path='/categories' element ={< Categories />} />
-				<Route path='/books/new' element={<AddBook />} />
-				<Route path='/login' element={<Login />} /> */}
+				<Route path='/books/new' element={<AddBook />} /> */}
+				<Route path='/login' element={<Login />} />
                 <Route path='/books' element={<Books />} />
 				
 			</Routes>
