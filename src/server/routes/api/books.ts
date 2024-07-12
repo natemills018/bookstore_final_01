@@ -52,7 +52,7 @@ router.delete('/:id', async(req, res) => {
 
 
 
-router.post('/', tokenCheck, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { title, price, author, category_id} = req.body
 
