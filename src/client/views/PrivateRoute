@@ -1,0 +1,65 @@
+import React, { useState, useEffect } from 'react';
+import { GET, TOKEN_KEY, PUT } from '../services/fetcher';
+import { useNavigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+
+
+
+interface PrivateWrapperProps {
+    children: React.ReactNode;
+
+}
+
+
+const PrivateWrapper = ({ children }: PrivateWrapperProps) => {
+    const nav = useNavigate();
+    const [isValid, setisValid] = useState(false);
+    const [hasChecked, setHasChecked] = useState(false);
+
+    useEffect(() => {
+        GET('/auth/verify')
+        .then(() => setisValid(true))
+        .finally(() => setHasChecked(true)) 
+    }, [])
+
+    if(!hasChecked) return;
+
+    if(!isValid) {
+        return nav
+    }
+}
+
+// interface PrivateRouteProps {
+//     path: string;
+//     exact?: boolean;
+//     children: React.ReactNode;
+// }
+
+// const PrivateRoute = ({children, ...rest}: PrivateRouteProps) => {
+//     const nav = useNavigate()
+//     const [hasChecked, setHasChecked] = useState(false);
+//     const [isGood, setIsGood] = useState(false);
+    
+//     useEffect(() => {
+//         GET('/api/auth/validate')
+//             .then(()=> setIsGood(true))
+//             .finally(()=> setHasChecked(true))
+//     })
+
+//     if(!hasChecked) return <></>
+
+//     if(!TOKEN_KEY) {
+//         return (
+//             nav('/login')
+//         )
+//     } else  {
+
+//         return (
+//             <Route {... rest}>{children}</Route>
+//         )
+//     }
+// }
+
+
+// export default PrivateRoute;
