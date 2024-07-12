@@ -13,6 +13,12 @@ const Books = (props: BooksProps) => {
     const [categories, setCategories] = useState<Category>()
 
     useEffect(() => {
+        GET('/api/categories')
+        .then(categories => setCategories(categories))
+    })
+
+
+    useEffect(() => {
         GET('/api/books')
         .then(data => setData(data))
     }, [])

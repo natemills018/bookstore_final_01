@@ -18,3 +18,7 @@ export function deleteBook(id: number) {
 export function insert(newBook: NewBook) {
     return ModifyQuery('INSERT INTO Books SET ?', [newBook])
 }
+
+export function updatedBook(updateBook: string, id: number) {
+    return ModifyQuery<Book>('UPDATE Books SET ? WHERE id =?;', [updateBook, id])
+}
