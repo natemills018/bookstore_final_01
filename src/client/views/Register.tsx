@@ -10,8 +10,9 @@ const Register = () => {
 
 const handleRegister = () => {
     const url = '/auth/register';
-    POST(url, {email, password}).then((token) => {
-        localStorage.setItem(TOKEN_KEY, token)
+    POST(url, {email, password}).then((data) => {
+      console.log(data)
+        localStorage.setItem(TOKEN_KEY, data.token)
         alert('You registered!')
         nav('/login');
     }) 

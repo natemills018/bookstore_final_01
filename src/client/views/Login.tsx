@@ -10,8 +10,9 @@ const Login = () => {
 
 const handleLogin = () => {
     const url = '/auth/login';
-    POST(url, {email, password}).then((token) => {
-        localStorage.setItem(TOKEN_KEY, token)
+    POST(url, {email, password}).then((data) => {
+        console.log(data)
+        localStorage.setItem(TOKEN_KEY, data.token)
         alert('You logged in!')
         nav('/books')
     })

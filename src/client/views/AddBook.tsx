@@ -14,9 +14,9 @@ const AddBook = (props: AddProps) => {
   const navigate = useNavigate();
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectCatId, setSelectCatId] = useState("");
+  const [selectCatId, setSelectCatId] = useState(0);
 
   useEffect(() => {
     GET("/api/categories").then((categories) => setCategories(categories));
@@ -27,12 +27,17 @@ const AddBook = (props: AddProps) => {
     if (!selectCatId) {
       return alert("Select a book category to continue");
     }
-    POST(url, { author, title, price, selectCatId }).then((book) => {
+    POST(url, { author, title, price, category_id: selectCatId }).then((book) => {
       console.log(book);
       alert('You added a book to the bookstore!')
       navigate(`/books/${book.id}`);
     });
   };
+
+  
+  console.log({ title, author, price, selectCatId})
+
+
   return (
     <main className="container mt-5">
       <section className="row justify-content-center">
@@ -61,13 +66,14 @@ const AddBook = (props: AddProps) => {
               <input
                 className="m-2"
                 placeholder="Price"
+                type="number"
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setPrice(Number(e.target.value))}
               />
 
               <select
                 value={selectCatId}
-                onChange={(e) => setSelectCatId(e.target.value)}
+                onChange={(e) => setSelectCatId(Number(e.target.value))}
               >
                 <option value={0}>Pick a Category</option>
                 {categories.map((cat) => (
