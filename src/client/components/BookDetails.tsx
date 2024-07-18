@@ -24,7 +24,7 @@ const BookDetails = (props: BookDetails) => {
                             <h2 className='card-title d-flex justify-content-center align-items-center'> Book Details for {data?.author}</h2>
                             <p className='card-title  d-flex justify-content-center text-dark align-items-center'><span className='text-decoration-underline'>{data?.title}</span> </p>
                             <div className="d-flex justify-content-center align-items-center">
-                            <Link to='/books/:id/update' className='btn btn-outline btn-success'>Edit Book</Link>
+                            <Link to={`/books/${id}/update`} className='btn btn-outline btn-success'>Update Book</Link>
                             <Link to='/books' className='btn btn-outline btn-primary mx-4'>Go Back to Books</Link>
                             <Link to='/books/new' className='btn btn-outline btn-light'>Add Your Own!</Link>
                             </div>

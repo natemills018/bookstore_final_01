@@ -17,7 +17,7 @@ const Categories = (props: CategoriesProps) => {
     useEffect(() => {
         GET('/api/categories')
         .then(data => setData(data))
-    }, [])
+    }, [data])
 
 
 

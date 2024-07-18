@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { POST, GET,PUT } from "../services/fetcher";
+import { POST, GET,PUT, DELETE } from "../services/fetcher";
 import {
   useNavigate,
   Link,
   useParams,
   useResolvedPath,
 } from "react-router-dom";
-import { Category } from "../types";
+import { Book, Category } from "../types";
 
 interface UpdateProps {}
 
 const UpdateBook = (props: UpdateProps) => {    
-    const {id} = useParams()
+  const { id } = useParams()
   const navigate = useNavigate();
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
@@ -21,20 +21,37 @@ const UpdateBook = (props: UpdateProps) => {
 
 
 
+ 
   useEffect(() => {
-    GET("/api/categories").then((categories) => setCategories(categories));
-  }, []);
+    GET<Book>(`/api/books/${id}`).then((book) => {
+        setTitle(book.title);
+        setAuthor(book.author);
+        setPrice(book.price);
+        setSelectCatId(book.category_id)
+    })
+    
+    console.log('This is the useEffect updateBook');
+
+    console.log(id);
+
+    GET('/api/categories').then((categories) => setCategories(categories));
+  }, [])
+  
 
   const handleButton = () => {
     const url = `/api/books/`;
-    if (!selectCatId) {
-      return alert("Select a book category to continue");
-    }
+
+    console.log(url + id)
     PUT(url + id, { author, title, price, category_id: selectCatId }).then((book) => {
-      alert(book.message)
-      navigate(`/books/${book.id}`);
+      navigate(`/books/${id}`);
     });
   };
+
+  const handleDelete = () => {
+    DELETE('/api/books/' + id).then((data) => {
+      alert(data.message)
+    })
+  }
 
   
   console.log({ title, author, price, selectCatId})
@@ -88,9 +105,18 @@ const UpdateBook = (props: UpdateProps) => {
                   className="rounded mx-4"
                   onClick={handleButton}
                 >
-                  Click to Add your Book
+                  Click to Update your Book
                 </button>
-              </div>
+                </div>
+                <div className="d-flex justify-content-center m-2">
+                <button
+                  className="rounded mx-4"
+                  onClick={handleDelete}
+                >
+                  Click to Delete your Book
+                </button>
+                </div>
+
             </div>
           </div>
         </div>

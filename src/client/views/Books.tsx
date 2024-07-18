@@ -15,7 +15,7 @@ const Books = (props: BooksProps) => {
     useEffect(() => {
         GET('/api/categories')
         .then(categories => setCategories(categories))
-    })
+    }, [])
 
 
     useEffect(() => {

@@ -19,7 +19,10 @@ router.get('/' , async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
+        console.log({ beforeParse: req.params.id });
         const id = parseInt(req.params.id, 10)
+        console.log({ afterParse: id });
+
         const [book] = await db.books.getOne(id)
 
         //checks to see if there is a book at the requested id
@@ -36,7 +39,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', tokenCheck, async(req, res) => {
     try {
         const id = parseInt(req.params.id, 10)
         const deletedBook = req.body;
@@ -52,7 +55,7 @@ router.delete('/:id', async(req, res) => {
 
 
 
-router.post('/', async (req, res) => {
+router.post('/', tokenCheck, async (req, res) => {
     try {
         const { title, price, author, category_id} = req.body
 
@@ -70,11 +73,12 @@ router.post('/', async (req, res) => {
 })
 
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', tokenCheck, async(req, res) => {
+
     try {
         const id = parseInt(req.params.id, 10)
         const updatedBook = req.body;
-        console.log({ id, bookData: updatedBook});
+        // console.log({ id, bookData: updatedBook});
         await db.books.updatedBook(updatedBook, id);
         res.json({ message: `The book at ${id} has been updated`})
 
